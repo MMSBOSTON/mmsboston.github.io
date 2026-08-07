@@ -1,0 +1,322 @@
+:root {
+    --bg-color: #050805;
+    --grid-color: rgba(94, 189, 62, 0.05);
+    --card-bg: rgba(10, 15, 10, 0.85);
+    --mil-green: #5ebd3e; /* Тактический зеленый */
+    --mil-green-dim: #335926;
+    --mil-green-glow: rgba(94, 189, 62, 0.4);
+    --text-main: #d3ecd3;
+    --text-muted: #849b84;
+    --alert-color: #d9534f;
+    --warning-color: #f0ad4e;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Rajdhani', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* === ЭФФЕКТЫ ТЕРМИНАЛА (CRT & Grid) === */
+.crt-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.6) 100%);
+    pointer-events: none;
+    z-index: 998;
+}
+
+.scanlines {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 4px, 3px 100%;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.military-grid {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background-image: 
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: -1;
+}
+
+/* === КОНТЕЙНЕР И ШАПКА === */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    position: relative;
+    z-index: 10;
+}
+
+header {
+    margin-bottom: 30px;
+}
+
+.system-status {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--mil-green);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 1px;
+}
+
+.blinking-dot {
+    width: 8px; height: 8px;
+    background-color: var(--mil-green);
+    border-radius: 50%;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.terminal-title {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 2.5rem;
+    font-weight: 400;
+    margin: 0 0 25px 0;
+    color: var(--mil-green);
+    text-shadow: 0 0 10px var(--mil-green-glow);
+    letter-spacing: -1px;
+}
+
+/* === ПОИСК (ТАКТИЧЕСКИЙ ВВОД) === */
+.search-container {
+    position: relative;
+    width: 100%;
+}
+
+.search-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--mil-green);
+    font-size: 1.2rem;
+    pointer-events: none;
+}
+
+#search {
+    width: 100%;
+    padding: 16px 20px 16px 55px;
+    background: rgba(10, 20, 10, 0.7);
+    border: 1px solid var(--mil-green-dim);
+    border-radius: 2px;
+    color: var(--mil-green);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.1rem;
+    outline: none;
+    transition: all 0.3s;
+    text-transform: uppercase;
+}
+
+#search:focus {
+    border-color: var(--mil-green);
+    box-shadow: inset 0 0 15px rgba(94, 189, 62, 0.2), 0 0 15px var(--mil-green-glow);
+    background: rgba(15, 30, 15, 0.9);
+}
+
+#search::placeholder {
+    color: rgba(94, 189, 62, 0.3);
+}
+
+/* === ОКНО ТЕРМИНАЛА === */
+.terminal-window {
+    background: var(--card-bg);
+    border: 1px solid var(--mil-green-dim);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.window-header {
+    background: var(--mil-green-dim);
+    padding: 8px 15px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+.window-content {
+    padding: 20px;
+}
+
+/* === КАРТОЧКИ ПРАВИЛ === */
+.rule-card {
+    background: rgba(5, 10, 5, 0.9);
+    border: 1px solid #1a2c1a;
+    border-left: 4px solid var(--mil-green);
+    margin-bottom: 15px;
+    transition: all 0.2s;
+}
+
+.rule-card:hover {
+    border-color: var(--mil-green-dim);
+    box-shadow: 0 0 15px rgba(94, 189, 62, 0.1);
+}
+
+.rule-header {
+    padding: 18px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    background: rgba(94, 189, 62, 0.03);
+}
+
+.rule-header h2 {
+    margin: 0;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.15rem;
+    color: var(--mil-green);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.status-badge {
+    margin-left: auto;
+    margin-right: 15px;
+    padding: 3px 8px;
+    background: rgba(94, 189, 62, 0.1);
+    border: 1px solid var(--mil-green);
+    color: var(--mil-green);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+}
+.status-badge.warning {
+    border-color: var(--warning-color);
+    color: var(--warning-color);
+    background: rgba(240, 173, 78, 0.1);
+}
+
+.rule-header .arrow {
+    color: var(--mil-green-dim);
+    transition: transform 0.3s;
+}
+
+.rule-card.active .rule-header {
+    background: rgba(94, 189, 62, 0.1);
+    border-bottom: 1px solid var(--mil-green-dim);
+}
+
+.rule-card.active .rule-header .arrow {
+    transform: rotate(180deg);
+    color: var(--mil-green);
+}
+
+/* Контент карточки */
+.rule-text {
+    display: none;
+    padding: 15px 20px 25px 20px;
+}
+
+.rule-card.active .rule-text {
+    display: block;
+}
+
+/* === СГЕНЕРИРОВАННЫЕ ЭЛЕМЕНТЫ (JS) === */
+
+.law-section-title {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.2rem;
+    color: #fff;
+    margin: 25px 0 10px 0;
+    border-bottom: 1px dashed var(--mil-green-dim);
+    padding-bottom: 8px;
+}
+
+.law-chapter-title {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin: 15px 0;
+}
+
+.law-article {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #1a2c1a;
+    margin: 10px 0;
+}
+
+.article-header {
+    background: var(--mil-green-dim);
+    padding: 8px 15px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.95rem;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.article-content {
+    padding: 12px 15px;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: var(--text-main);
+}
+.article-content p { margin: 0; }
+
+.standard-rule-item {
+    position: relative;
+    padding: 10px 15px 10px 30px;
+    margin: 8px 0;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: var(--text-main);
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid transparent;
+}
+
+.standard-rule-item::before {
+    content: '>';
+    position: absolute;
+    left: 12px;
+    color: var(--mil-green-dim);
+    font-family: 'Share Tech Mono', monospace;
+    font-weight: bold;
+}
+
+.standard-rule-item:hover {
+    border-color: #1a2c1a;
+    background: rgba(94, 189, 62, 0.05);
+}
+.standard-rule-item:hover::before {
+    color: var(--mil-green);
+}
+
+.intro-text {
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+/* Эффект подсветки найденного текста (если нужен в будущем) */
+mark {
+    background: var(--mil-green);
+    color: #000;
+    padding: 0 2px;
+}
