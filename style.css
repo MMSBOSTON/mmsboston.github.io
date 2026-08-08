@@ -2,7 +2,7 @@
     --bg-color: #050805;
     --grid-color: rgba(94, 189, 62, 0.05);
     --card-bg: rgba(10, 15, 10, 0.85);
-    --mil-green: #5ebd3e; /* Тактический зеленый */
+    --mil-green: #5ebd3e;
     --mil-green-dim: #335926;
     --mil-green-glow: rgba(94, 189, 62, 0.4);
     --text-main: #d3ecd3;
@@ -25,7 +25,6 @@ body {
     min-height: 100vh;
 }
 
-/* === ЭФФЕКТЫ ТЕРМИНАЛА (CRT & Grid) === */
 .crt-overlay {
     position: fixed;
     top: 0; left: 0; width: 100vw; height: 100vh;
@@ -53,7 +52,6 @@ body {
     z-index: -1;
 }
 
-/* === КОНТЕЙНЕР И ШАПКА === */
 .container {
     max-width: 900px;
     margin: 0 auto;
@@ -99,7 +97,6 @@ header {
     letter-spacing: -1px;
 }
 
-/* === ПОИСК (ТАКТИЧЕСКИЙ ВВОД) === */
 .search-container {
     position: relative;
     width: 100%;
@@ -139,7 +136,6 @@ header {
     color: rgba(94, 189, 62, 0.3);
 }
 
-/* === ОКНО ТЕРМИНАЛА === */
 .terminal-window {
     background: var(--card-bg);
     border: 1px solid var(--mil-green-dim);
@@ -162,7 +158,6 @@ header {
     padding: 20px;
 }
 
-/* === КАРТОЧКИ ПРАВИЛ === */
 .rule-card {
     background: rgba(5, 10, 5, 0.9);
     border: 1px solid #1a2c1a;
@@ -227,7 +222,6 @@ header {
     color: var(--mil-green);
 }
 
-/* Контент карточки */
 .rule-text {
     display: none;
     padding: 15px 20px 25px 20px;
@@ -236,8 +230,6 @@ header {
 .rule-card.active .rule-text {
     display: block;
 }
-
-/* === СГЕНЕРИРОВАННЫЕ ЭЛЕМЕНТЫ (JS) === */
 
 .law-section-title {
     font-family: 'Share Tech Mono', monospace;
@@ -314,7 +306,61 @@ header {
     margin-bottom: 10px;
 }
 
-/* Эффект подсветки найденного текста (если нужен в будущем) */
+/* Стили для форматированных правил (RULES) */
+.rule-text h3 {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--mil-green);
+    font-size: 1.1rem;
+    margin: 20px 0 10px 0;
+    border-bottom: 1px dashed var(--mil-green-dim);
+    padding-bottom: 5px;
+}
+
+.rule-item {
+    margin-bottom: 12px;
+    padding: 10px 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-left: 2px solid var(--mil-green-dim);
+    transition: 0.2s;
+}
+
+.rule-item:hover {
+    border-left-color: var(--mil-green);
+    background: rgba(94, 189, 62, 0.05);
+}
+
+.rule-item p {
+    margin: 0 0 6px 0;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: var(--text-main);
+}
+
+.rule-item p strong {
+    color: var(--mil-green);
+    font-family: 'Share Tech Mono', monospace;
+}
+
+.rule-note {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    padding: 6px 10px;
+    margin-top: 4px;
+    border-top: 1px dashed rgba(94, 189, 62, 0.2);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.rule-note strong {
+    color: var(--warning-color);
+    font-family: 'Share Tech Mono', monospace;
+}
+
+.rule-text hr {
+    border: 0;
+    border-top: 1px dashed var(--mil-green-dim);
+    margin: 20px 0;
+}
+
 mark {
     background: var(--mil-green);
     color: #000;
